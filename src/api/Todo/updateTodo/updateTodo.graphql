@@ -1,0 +1,8 @@
+type Mutation {
+  updateTodo(
+    todoId: String
+    username: String
+    text: String
+    done: Boolean
+  ): Boolean
+}

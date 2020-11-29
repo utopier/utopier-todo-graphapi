@@ -1,0 +1,15 @@
+type User {
+  id: ID!
+  name: String
+  email: String
+  password: String
+  todo: [Todo]
+}
+
+type Todo {
+  id: ID
+  createdAt: String
+  text: String
+  done: Boolean
+  user: User
+}
