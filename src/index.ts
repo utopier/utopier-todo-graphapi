@@ -77,11 +77,10 @@ app.use(authenticateJwt);
 server.applyMiddleware({ app, path: '/graphql'});
 
 const httpServer = createServer(app);
-const PORT = 2025;
 
 server.installSubscriptionHandlers(httpServer)
-httpServer.listen({ port: PORT }, () =>{
-  console.log(`Server Start http://localhost:${PORT}/graphql`)
+httpServer.listen({ port: process.env.PORT || 4000  }, () =>{
+  console.log(`Server Start http://localhost:${process.env.PORT || 4000}/graphql`)
   console.log(server.subscriptionsPath)
 });
 
