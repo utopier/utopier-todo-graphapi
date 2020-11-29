@@ -8,7 +8,7 @@
     "start": "cd dist && node .",
     "pretypes": "gql-merge --out-file ./src/schema.graphql ./src/api/**/*.graphql",
     "types": "graphql-to-typescript ./src/schema.graphql ./src/types/graph.d.ts",
-    "prebuild": "rmdir /s /q dist",
+    "prebuild": "rimraf /s /q dist",
     "build": "tsc",
     "postbuild": "cd src && copy ./api/**/*.graphql ../dist/api"
   },
