@@ -6,5 +6,6 @@
     "lib": ["es6"],
     "esModuleInterop": true,
     "noImplicitAny": false
-  }
+  },
+  "exclude": ["node_modues"]
 }

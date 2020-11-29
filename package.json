@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "dev": " nodemon --exec ts-node src/index.ts",
-    "start": "ts-node src/index.ts"
+    "start": "cd dist && node .",
+    "pretypes": "gql-merge --out-file ./src/schema.graphql ./src/api/**/*.graphql",
+    "types": "graphql-to-typescript ./src/schema.graphql ./src/types/graph.d.ts",
+    "prebuild": "rmdir /s /q dist",
+    "build": "tsc",
+    "postbuild": "cd src && copy ./api/**/*.graphql ../dist/api"
   },
   "keywords": [],
   "author": "",
@@ -14,16 +19,21 @@
     "@prisma/client": "^2.12.1",
     "apollo-server": "^2.19.0",
     "apollo-server-express": "^2.19.0",
+    "babel-runtime": "^6.26.0",
     "bcryptjs": "^2.4.3",
+    "copy": "^0.3.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "gql-merge": "0.0.6",
     "graphql": "^15.4.0",
+    "graphql-to-typescript": "^0.1.2",
     "jsonwebtoken": "^8.5.1",
     "merge-graphql-schemas": "^1.7.8",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "rimraf": "^3.0.2"
   },
   "devDependencies": {
     "@prisma/cli": "^2.12.1",
