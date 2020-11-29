@@ -124,6 +124,11 @@
 4. Prisma로 데이터베이스 검사
    - npx prisma introspect
 5. Prisma 클라이언트 설치 및 생성
-    - npm install @prisma/client
-    - npx prisma generate
-    - npx ts-node index.ts
+   - npm install @prisma/client
+   - npx prisma generate
+   - npx ts-node index.ts
+
+---
+
+Suscription
+Lambda

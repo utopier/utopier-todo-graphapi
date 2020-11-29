@@ -1,5 +1,5 @@
 import express from 'express';
-import { ApolloServer } from 'apollo-server-express';
+import { ApolloServer, PubSub } from 'apollo-server-express';
 import schema from './schema';
 import { createServer } from 'http';
 import logger from 'morgan';
@@ -60,9 +60,12 @@ import  isAuthenticated  from './middlewares';
 // mockEntireSchema: false
 // cacheControl: { defaultMaxAge: 5,}
 // plugins: [responseCachePlugin()]
+
+const pubsub = new PubSub();
 const server: any = new ApolloServer({
   schema,
-  context: ({ req: request }) => ({ request, isAuthenticated })
+  context: ({ req: request }) => ({ request, isAuthenticated, pubsub }),
+  tracing: true,
 });
 
 const app = express();
@@ -76,8 +79,10 @@ server.applyMiddleware({ app, path: '/graphql'});
 const httpServer = createServer(app);
 const PORT = 2025;
 
-httpServer.listen({ port: PORT }, () =>
+server.installSubscriptionHandlers(httpServer)
+httpServer.listen({ port: PORT }, () =>{
   console.log(`Server Start http://localhost:${PORT}/graphql`)
-);
+  console.log(server.subscriptionsPath)
+});
 
 // createTestClient
