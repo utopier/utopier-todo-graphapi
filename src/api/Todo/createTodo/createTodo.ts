@@ -7,13 +7,13 @@ export default {
       isAuthenticated(request);
       const { user } = request;
       const { text } = args;
-      await prisma.todo.create({
+      const newTodo = await prisma.todo.create({
         data: {
           text,
           user: { connect: { id: +user.id } }
         },
       });
-      pubsub.publish("TODO_ADDED", { todoAdded: {text: args.text, done: false }});
+      pubsub.publish("TODO_ADDED", { todoAdded: {id: newTodo.id,createdAt: newTodo.createdAt ,text: args.text, done: false }});
       return true;
     },
   },

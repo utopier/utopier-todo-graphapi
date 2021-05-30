@@ -1,3 +1,23 @@
 type Query {
-  getTodos: [Todo]
+  getTodos(
+    filter: String
+    skip: Int
+    take: Int
+    orderBy: TodoOrderByInput
+  ): TodoList
+}
+
+type TodoList {
+  todos: [Todo]
+  count: Int
+}
+
+input TodoOrderByInput {
+  done: Sort
+  createdAt: Sort
+}
+
+enum Sort {
+  asc
+  desc
 }

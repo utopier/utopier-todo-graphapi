@@ -6,11 +6,36 @@ export default {
     getTodos: async (_, args, { request, isAuthenticated }) => {
       isAuthenticated(request);
       const { user } = request;
-      return prisma.todo.findMany({
-        where: {
-          user: { id: +user.id },
-        },
+      console.log(user.id)
+      console.log(args.filter)
+      const where = args.filter ? (
+        {
+          OR: [
+            {user: {id: +user.id}},
+            {text: args.filter}
+          ]
+        }
+      ) : (
+        {
+          user:{
+            id: +user.id
+          }
+        }
+      );
+      
+      const count = await prisma.todo.count({where})
+
+      const todos = await prisma.todo.findMany({
+        where,
+        skip: args.skip,
+        take: args.take,
+        orderBy: args.orderBy,
       });
+
+      return {
+        todos,
+        count,
+      }
     },
   },
 };

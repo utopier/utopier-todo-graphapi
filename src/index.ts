@@ -12,6 +12,8 @@ import './passport';
 import  authenticateJwt   from './passport';
 import  isAuthenticated  from './middlewares';
 
+import events from 'events';
+events.EventEmitter.defaultMaxListeners = 20;
 
 // // 기본 스칼라 타입 : Int, Float, String, Boolean, ID
 // // 객체 Type
